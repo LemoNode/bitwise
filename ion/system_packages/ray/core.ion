@@ -1,0 +1,183 @@
+#foreign(header = "<raylib.h>")
+
+// Window-related functions
+@foreign func InitWindow(width: int, height: int, title: char* const);
+@foreign func WindowShouldClose(): bool;
+@foreign func CloseWindow();
+@foreign func IsWindowReady(): bool;
+@foreign func IsWindowFullscreen(): bool;
+@foreign func IsWindowHidden(): bool;
+@foreign func IsWindowMinimized(): bool;
+@foreign func IsWindowMaximized(): bool;
+@foreign func IsWindowFocused(): bool;
+@foreign func IsWindowResized(): bool;
+@foreign func IsWindowState(flag: uint): bool;
+@foreign func SetWindowState(flags: uint);
+@foreign func ClearWindowState(flags: uint);
+@foreign func ToggleFullscreen();
+@foreign func MaximizeWindow();
+@foreign func MinimizeWindow();
+@foreign func RestoreWindow();
+@foreign func SetWindowIcon(image: Image);
+@foreign func SetWindowTitle(title: char* const);
+@foreign func SetWindowPosition(x: int, y: int);
+@foreign func SetWindowMonitor(monitor: int);
+@foreign func SetWindowMinSize(width: int, height: int);
+@foreign func SetWindowSize(width: int, height: int);
+@foreign func GetWindowHandle(): void*;
+@foreign func GetScreenWidth(): int;
+@foreign func GetScreenHeight(): int;
+@foreign func GetMonitorCount(): int;
+@foreign func GetMonitorPosition(monitor: int): Vector2;
+@foreign func GetMonitorWidth(monitor: int): int;
+@foreign func GetMonitorHeight(monitor: int): int;
+@foreign func GetMonitorPhysicalWidth(monitor: int): int;
+@foreign func GetMonitorPhysicalHeight(monitor: int): int;
+@foreign func GetMonitorRefreshRate(monitor: int): int;
+@foreign func GetWindowPosition(): Vector2;
+@foreign func GetWindowScaleDPI(): Vector2;
+@foreign func GetMonitorName(monitor: int): char* const;
+@foreign func SetClipboardText(text: char* const);
+@foreign func GetClipboardText(): char* const;
+
+// Cursor-related functions         
+@foreign func ShowCursor();
+@foreign func HideCursor();
+@foreign func IsCursorHidden(): bool;
+@foreign func EnableCursor();
+@foreign func DisableCursor();
+@foreign func IsCursorOnScreen(): bool;
+
+// Drawing-related functions            
+@foreign func ClearBackground(color: Color);
+@foreign func BeginDrawing();
+@foreign func EndDrawing();
+@foreign func BeginMode2D(camera: Camera2D);
+@foreign func EndMode2D();
+@foreign func BeginMode3D(camera: Camera3D);
+@foreign func EndMode3D();
+@foreign func BeginTextureMode(target: RenderTexture2D);
+@foreign func EndTextureMode();
+@foreign func BeginScissorMode(x: int, y: int, width: int, height: int);
+@foreign func EndScissorMode();
+
+// Screen-space-related functions
+@foreign func GetMouseRay(mousePosition: Vector2, camera: Camera): Ray;
+@foreign func GetCameraMatrix(camera: Camera): Matrix;
+@foreign func GetCameraMatrix2D(camera: Camera2D): Matrix;
+@foreign func GetWorldToScreen(position: Vector3, camera: Camera): Vector2;
+@foreign func GetWorldToScreenEx(position: Vector3, camera: Camera, width: int, height: int): Vector2;
+@foreign func GetWorldToScreen2D(position: Vector2, camera: Camera2D): Vector2;
+@foreign func GetScreenToWorld2D(position: Vector2, camera: Camera2D): Vector2;
+
+// Timing-related functions
+@foreign func SetTargetFPS(fps: int);
+@foreign func GetFPS(): int;
+@foreign func GetFrameTime(): float;
+@foreign func GetTime(): double;
+        
+// Misc. functions          
+@foreign func SetConfigFlags(flags: uint);
+        
+@foreign func SetTraceLogLevel(logType: int);
+@foreign func SetTraceLogExit(logType: int);
+@foreign func SetTraceLogCallback(callback: TraceLogCallback);
+@foreign func TraceLog(logType: int, text: char* const, ...);
+        
+@foreign func MemAlloc(size: int): void*;
+@foreign func MemFree(ptr: void*);
+@foreign func TakeScreenshot(fileName: char* const);
+@foreign func GetRandomValue(min: int, max: int): int;
+
+// Files management functions
+@foreign func LoadFileData(fileName: char* const, bytesRead: uint*): uchar*;
+@foreign func UnloadFileData(data: uchar*);
+@foreign func SaveFileData(fileName: char* const, data: void*, bytesToWrite: uint): bool;
+@foreign func LoadFileText(fileName: char* const ): char*;
+@foreign func UnloadFileText(text: uchar*);
+@foreign func SaveFileText(fileName: char* const, text: char*): bool;
+@foreign func FileExists(fileName: char* const): bool;
+@foreign func DirectoryExists(dirPath: char* const): bool;
+@foreign func IsFileExtension(fileName: char* const, ext: char* const): bool;
+@foreign func GetFileExtension(fileName: char* const): char* const;
+@foreign func GetFileName(filePath: char* const): char* const;
+@foreign func GetFileNameWithoutExt(filePath: char* const): char* const;
+@foreign func GetDirectoryPath(filePath: char* const): char* const;
+@foreign func GetPrevDirectoryPath(dirPath: char* const): char* const;
+@foreign func GetWorkingDirectory(): char* const;
+@foreign func GetDirectoryFiles(dirPath: char* const, count: int*): char**;
+@foreign func ClearDirectoryFiles();
+@foreign func ChangeDirectory(dir: char* const): bool;
+@foreign func IsFileDropped(): bool;
+@foreign func GetDroppedFiles(count: int*): char**;
+@foreign func ClearDroppedFiles();
+@foreign func GetFileModTime(fileName: char* const): long;
+
+@foreign func CompressData(data: uchar*, dataLength: int, compDataLength: int*): uchar*;
+@foreign func DecompressData(compData: uchar*, compDataLength: int, dataLength: int*): uchar*;
+
+// Persistent storage management
+@foreign func SaveStorageValue(position: uint, value: int): bool;
+@foreign func LoadStorageValue(position: uint): int;
+
+@foreign func OpenURL(url: char* const);
+
+// Input-related functions: keyboard
+@foreign func IsKeyPressed(key: int): bool;
+@foreign func IsKeyDown(key: int): bool;
+@foreign func IsKeyReleased(key: int): bool;
+@foreign func IsKeyUp(key: int): bool;
+@foreign func SetExitKey(key: int);
+@foreign func GetKeyPressed(): int;
+@foreign func GetCharPressed(): int;
+
+// Input-related functions: gamepads                
+@foreign func IsGamepadAvailable(gamepad: int): bool;
+@foreign func IsGamepadName(gamepad: int, name: char* const): bool;
+@foreign func GetGamepadName(gamepad: int): char* const;
+@foreign func IsGamepadButtonPressed(gamepad: int, button: int): bool;
+@foreign func IsGamepadButtonDown(gamepad: int, button: int): bool;
+@foreign func IsGamepadButtonReleased(gamepad: int, button: int): bool;
+@foreign func IsGamepadButtonUp(gamepad: int, button: int): bool;
+@foreign func GetGamepadButtonPressed(): int;
+@foreign func GetGamepadAxisCount(gamepad: int): int;
+@foreign func GetGamepadAxisMovement(gamepad: int, axis: int): float;
+
+// Input-related functions: mouse               
+@foreign func IsMouseButtonPressed(button: int): bool;
+@foreign func IsMouseButtonDown(button: int): bool;
+@foreign func IsMouseButtonReleased(button: int): bool;
+@foreign func IsMouseButtonUp(button: int): bool;
+@foreign func GetMouseX(): int;
+@foreign func GetMouseY(): int;
+@foreign func GetMousePosition(): Vector2;
+@foreign func SetMousePosition(x: int, y: int);
+@foreign func SetMouseOffset(offsetX: int, offsetY: int);
+@foreign func SetMouseScale(scaleX: float, scaleY: float);
+@foreign func GetMouseWheelMove(): float;
+@foreign func GetMouseCursor(): int;
+@foreign func SetMouseCursor(cursor: int);
+
+// Input-related functions: touch               
+@foreign func GetTouchX(): int;
+@foreign func GetTouchY(): int;
+@foreign func GetTouchPosition(index: int): Vector2;
+
+@foreign func SetGesturesEnabled(gestureFlags: uint);
+@foreign func IsGestureDetected(gesture: int): bool;
+@foreign func GetGestureDetected(): int;
+@foreign func GetTouchPointsCount(): int;
+@foreign func GetGestureHoldDuration(): float;
+@foreign func GetGestureDragVector(): Vector2;
+@foreign func GetGestureDragAngle(): float;
+@foreign func GetGesturePinchVector(): Vector2;
+@foreign func GetGesturePinchAngle(): float;
+
+// Camera stuff
+@foreign func SetCameraMode(camera: Camera, mode: int);
+@foreign func UpdateCamera(camera: Camera*);
+
+@foreign func SetCameraPanControl(keyPan: int);
+@foreign func SetCameraAltControl(keyAlt: int);
+@foreign func SetCameraSmoothZoomControl(keySmoothZoom: int);
+@foreign func SetCameraMoveControls(frontKey: int, backKey: int, rightKey: int, leftKey: int, upKey: int, downKey: int);
