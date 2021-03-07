@@ -1,0 +1,111 @@
+// loading: Image functions
+// NOTE: This functions do not require GPU access
+@foreign func LoadImage(fileName: char* const): Image;
+@foreign func LoadImageRaw(fileName: char* const, width: int, height: int, format: int, headerSize: int): Image;
+@foreign func LoadImageAnim(fileName: char* const, frames: int*): Image;
+@foreign func LoadImageFromMemory(fileType: char* const, fileData: uchar* const, dataSize: int): Image;
+@foreign func UnloadImage(image: Image);
+@foreign func ExportImage(image: Image, fileName: char* const): bool;
+@foreign func ExportImageAsCode(image: Image, fileName: char* const): bool;
+
+// generation: Image functions
+@foreign func GenImageColor(width: int, height: int, color: Color): Image;
+@foreign func GenImageGradientV(width: int, height: int, top: Color, bottom: Color): Image;
+@foreign func GenImageGradientH(width: int, height: int, left: Color, right: Color): Image;
+@foreign func GenImageGradientRadial(width: int, height: int, density: float, inner: Color, outer: Color): Image;
+@foreign func GenImageChecked(width: int, height: int, checksX: int, checksY: int, col1: Color, col2: Color): Image;
+@foreign func GenImageWhiteNoise(width: int, height: int, factor: float): Image;
+@foreign func GenImagePerlinNoise(width: int, height: int, offsetX: int, offsetY: int, scale: float): Image;
+@foreign func GenImageCellular(width: int, height: int, tileSize: int): Image;
+
+// manipulation: Image functions
+@foreign func ImageCopy(image: Image): Image;
+@foreign func ImageFromImage(image: Image, rec: Rectangle): Image;
+@foreign func ImageText(text: char* const, fontSize: int, color: Color): Image;
+@foreign func ImageTextEx(font: Font, text: char* const, fontSize: float, spacing: float, tint: Color): Image;
+@foreign func ImageFormat(image: Image*, newFormat: int);
+@foreign func ImageToPOT(image: Image*, fill: Color);
+@foreign func ImageCrop(image: Image*, crop: Rectangle);
+@foreign func ImageAlphaCrop(image: Image*, threshold: float);
+@foreign func ImageAlphaClear(image: Image*, color: Color, threshold: float);
+@foreign func ImageAlphaMask(image: Image*, alphaMask: Image);
+@foreign func ImageAlphaPremultiply(image: Image*);
+@foreign func ImageResize(image: Image*, newWidth: int, newHeight: int);
+@foreign func ImageResizeNN(image: Image*, newWidth: int, newHeight: int);
+@foreign func ImageResizeCanvas(image: Image*, newWidth: int, newHeight: int, offsetX: int, offsetY: int, fill: Color);
+@foreign func ImageMipmaps(image: Image*);
+@foreign func ImageDither(image: Image*, rBpp: int, gBpp: int, bBpp: int, aBpp: int);
+@foreign func ImageFlipVertical(image: Image*);
+@foreign func ImageFlipHorizontal(image: Image*);
+@foreign func ImageRotateCW(image: Image*);
+@foreign func ImageRotateCCW(image: Image*);
+@foreign func ImageColorTint(image: Image*, color: Color);
+@foreign func ImageColorInvert(image: Image*);
+@foreign func ImageColorGrayscale(image: Image*);
+@foreign func ImageColorContrast(image: Image*, contrast: float);
+@foreign func ImageColorBrightness(image: Image*, brightness: int);
+@foreign func ImageColorReplace(image: Image*, color: Color, replace: Color);
+@foreign func LoadImageColors(image: Image): Color*;
+@foreign func LoadImagePalette(image: Image, maxPaletteSize: int, colorsCount: int*): Color*;
+@foreign func UnloadImageColors(colors: Color*);
+@foreign func UnloadImagePalette(colors: Color*);
+@foreign func GetImageAlphaBorder(image: Image, threshold: float): Rectangle;
+
+// drawing: Image functions
+// NOTE: software: Image-rendering functions (CPU)
+@foreign func ImageClearBackground(dst: Image*, color: Color);
+@foreign func ImageDrawPixel(dst: Image*, posX: int, posY: int, color: Color);
+@foreign func ImageDrawPixelV(dst: Image*, position: Vector2, color: Color);
+@foreign func ImageDrawLine(dst: Image*, startPosX: int, startPosY: int, endPosX: int, endPosY: int, color: Color);
+@foreign func ImageDrawLineV(dst: Image*, start: Vector2, end: Vector2, color: Color);
+@foreign func ImageDrawCircle(dst: Image*, centerX: int, centerY: int, radius: int, color: Color);
+@foreign func ImageDrawCircleV(dst: Image*, center: Vector2, radius: int, color: Color);
+@foreign func ImageDrawRectangle(dst: Image*, posX: int, posY: int, width: int, height: int, color: Color);
+@foreign func ImageDrawRectangleV(dst: Image*, position: Vector2, size: Vector2, color: Color);
+@foreign func ImageDrawRectangleRec(dst: Image*, rec: Rectangle, color: Color);
+@foreign func ImageDrawRectangleLines(dst: Image*, rec: Rectangle, thick: int, color: Color);
+@foreign func ImageDraw(dst: Image*, src: Image, srcRec: Rectangle, dstRec: Rectangle, tint: Color);
+@foreign func ImageDrawText(dst: Image*, text: char* const, posX: int, posY: int, fontSize: int, color: Color);
+@foreign func ImageDrawTextEx(dst: Image*, font: Font, text: char* const, position: Vector2, fontSize: float, spacing: float, tint: Color);
+
+// Texture loading functions
+// NOTE: These functions require GPU access
+@foreign func LoadTexture(fileName: char* const): Texture2D;
+@foreign func LoadTextureFromImage(image: Image): Texture2D;
+@foreign func LoadTextureCubemap(image: Image, layoutType: int): TextureCubemap;
+@foreign func LoadRenderTexture(width: int, height: int): RenderTexture2D;
+@foreign func UnloadTexture(texture: Texture2D);
+@foreign func UnloadRenderTexture(Rendertarget: Texture2D);
+@foreign func UpdateTexture(texture: Texture2D, pixels: void* const);
+@foreign func UpdateTextureRec(texture: Texture2D, rec: Rectangle, pixels: void* const);
+@foreign func GetTextureData(texture: Texture2D): Image;
+@foreign func GetScreenData(): Image;
+
+// Texture configuration functions
+@foreign func GenTextureMipmaps(texture: Texture2D*);
+@foreign func SetTextureFilter(texture: Texture2D, filterMode: int);
+@foreign func SetTextureWrap(texture: Texture2D, wrapMode: int);
+
+// Texture drawing functions
+@foreign func DrawTexture(texture: Texture2D, posX: int, posY: int, tint: Color);
+@foreign func DrawTextureV(texture: Texture2D, position: Vector2, tint: Color);
+@foreign func DrawTextureEx(texture: Texture2D, position: Vector2, rotation: float, scale: float, tint: Color);
+@foreign func DrawTextureRec(texture: Texture2D, source: Rectangle, position: Vector2, tint: Color);
+@foreign func DrawTextureQuad(texture: Texture2D, tiling: Vector2, offset: Vector2, quad: Rectangle, tint: Color);
+@foreign func DrawTextureTiled(texture: Texture2D, source: Rectangle, dest: Rectangle, origin: Vector2, rotation: float, scale: float, tint: Color);
+@foreign func DrawTexturePro(texture: Texture2D, source: Rectangle, dest: Rectangle, origin: Vector2, rotation: float, tint: Color);
+@foreign func DrawTextureNPatch(texture: Texture2D, nPatchInfo: NPatchInfo, dest: Rectangle, origin: Vector2, rotation: float, tint: Color);
+
+// Color/pixel related functions
+@foreign func Fade(color: Color, alpha: float): Color;
+@foreign func ColorToInt(color: Color): int;
+@foreign func ColorNormalize(color: Color): Vector4;
+@foreign func ColorFromNormalized(normalized: Vector4): Color;
+@foreign func ColorToHSV(color: Color): Vector3;
+@foreign func ColorFromHSV(hue: float, saturation: float, value: float): Color;
+@foreign func ColorAlpha(color: Color, alpha: float): Color;
+@foreign func ColorAlphaBlend(dst: Color, src: Color, tint: Color): Color;
+@foreign func GetColor(hexValue: int): Color;
+@foreign func GetPixelColor(srcPtr: void*, format: int): Color;
+@foreign func SetPixelColor(dstPtr: void*, color: Color, format: int);
+@foreign func GetPixelDataSize(width: int, height: int, format: int): int;
