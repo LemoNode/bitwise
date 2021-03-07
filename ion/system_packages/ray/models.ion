@@ -1,0 +1,83 @@
+// Basic geometric 3D shapes drawing functions
+@foreign func DrawLine3D(startPos: Vector3, endPos: Vector3, color: Color);
+@foreign func DrawPoint3D(position: Vector3, color: Color);
+@foreign func DrawCircle3D(center: Vector3, radius: float, rotationAxis: Vector3, rotationAngle: float, color: Color);
+@foreign func DrawTriangle3D(v1: Vector3, v2: Vector3, v3: Vector3, color: Color);
+@foreign func DrawTriangleStrip3D(points: Vector3*, pointsCount: int, color: Color);
+@foreign func DrawCube(position: Vector3, width: float, height: float, length: float, color: Color);
+@foreign func DrawCubeV(position: Vector3, size: Vector3, color: Color);
+@foreign func DrawCubeWires(position: Vector3, width: float, height: float, length: float, color: Color);
+@foreign func DrawCubeWiresV(position: Vector3, size: Vector3, color: Color);
+@foreign func DrawCubeTexture(texture: Texture2D, position: Vector3, width: float, height: float, length: float, color: Color);
+@foreign func DrawSphere(centerPos: Vector3, radius: float, color: Color);
+@foreign func DrawSphereEx(centerPos: Vector3, radius: float, rings: int, slices: int, color: Color);
+@foreign func DrawSphereWires(centerPos: Vector3, radius: float, rings: int, slices: int, color: Color);
+@foreign func DrawCylinder(position: Vector3, radiusTop: float, radiusBottom: float, height: float, slices: int, color: Color);
+@foreign func DrawCylinderWires(position: Vector3, radiusTop: float, radiusBottom: float, height: float, slices: int, color: Color);
+@foreign func DrawPlane(centerPos: Vector3, size: Vector2, color: Color);
+@foreign func DrawRay(ray: Ray, color: Color);
+@foreign func DrawGrid(slices: int, spacing: float);
+@foreign func DrawGizmo(position: Vector3);
+
+// loading: Model/unloading functions
+@foreign func LoadModel(fileName: char* const): Model;
+@foreign func LoadModelFromMesh(mesh: Mesh): Model;
+@foreign func UnloadModel(model: Model);
+@foreign func UnloadModelKeepMeshes(model: Model);
+
+// loading: Mesh/unloading functions                                                                
+@foreign func LoadMeshes(fileName: char* const, meshCount: int*): Mesh*;
+@foreign func UnloadMesh(mesh: Mesh);
+@foreign func ExportMesh(mesh: Mesh, fileName: char* const): bool;
+
+// loading: Material/unloading functions                                                            
+@foreign func LoadMaterials(fileName: char* const, materialCount: int*): Material*;
+@foreign func LoadMaterialDefault(): Material;
+@foreign func UnloadMaterial(material: Material);
+@foreign func SetMaterialTexture(material: Material*, mapType: int, texture: Texture2D);
+@foreign func SetModelMeshMaterial(model: Model*, meshId: int, materialId: int);
+                                                                                                   
+// animations: Model loading/unloading functions                                                    
+@foreign func LoadModelAnimations(fileName: char* const, animsCount: int*): ModelAnimation*;
+@foreign func UpdateModelAnimation(model: Model, anim: ModelAnimation, frame: int);
+@foreign func UnloadModelAnimation(anim: ModelAnimation);
+@foreign func IsModelAnimationValid(model: Model, anim: ModelAnimation): bool;
+
+// generation: Mesh functions                                                                       
+@foreign func GenMeshPoly(sides: int, radius: float): Mesh;
+@foreign func GenMeshPlane(width: float, length: float, resX: int, resZ: int): Mesh;
+@foreign func GenMeshCube(width: float, height: float, length: float): Mesh;
+@foreign func GenMeshSphere(radius: float, rings: int, slices: int): Mesh;
+@foreign func GenMeshHemiSphere(radius: float, rings: int, slices: int): Mesh;
+@foreign func GenMeshCylinder(radius: float, height: float, slices: int): Mesh;
+@foreign func GenMeshTorus(radius: float, size: float, radSeg: int, sides: int): Mesh;
+@foreign func GenMeshKnot(radius: float, size: float, radSeg: int, sides: int): Mesh;
+@foreign func GenMeshHeightmap(heightmap: Image, size: Vector3): Mesh;
+@foreign func GenMeshCubicmap(cubicmap: Image, cubeSize: Vector3): Mesh;
+
+// manipulation: Mesh functions                                                                         
+@foreign func MeshBoundingBox(mesh: Mesh): BoundingBox;
+@foreign func MeshTangents(mesh: Mesh*);
+@foreign func MeshBinormals(mesh: Mesh*);
+@foreign func MeshNormalsSmooth(mesh: Mesh*);
+
+// drawing: Model functions
+@foreign func DrawModel(model: Model, position: Vector3, scale: float, tint: Color);
+@foreign func DrawModelEx(model: Model, position: Vector3, rotationAxis: Vector3, rotationAngle: float, scale: Vector3, tint: Color);
+@foreign func DrawModelWires(model: Model, position: Vector3, scale: float, tint: Color);
+@foreign func DrawModelWiresEx(model: Model, position: Vector3, rotationAxis: Vector3, rotationAngle: float, scale: Vector3, tint: Color);
+@foreign func DrawBoundingBox(box: BoundingBox, color: Color);
+@foreign func DrawBillboard(camera: Camera, texture: Texture2D, center: Vector3, size: float, tint: Color);
+@foreign func DrawBillboardRec(camera: Camera, texture: Texture2D, source: Rectangle, center: Vector3, size: float, tint: Color);
+
+// Collision detection functions
+@foreign func CheckCollisionSpheres(center1: Vector3, radius1: float, center2: Vector3, radius2: float): bool;
+@foreign func CheckCollisionBoxes(box1: BoundingBox, box2: BoundingBox): bool;
+@foreign func CheckCollisionBoxSphere(box: BoundingBox, center: Vector3, radius: float): bool;
+@foreign func CheckCollisionRaySphere(ray: Ray, center: Vector3, radius: float): bool;
+@foreign func CheckCollisionRaySphereEx(ray: Ray, center: Vector3, radius: float, collisionPoint: Vector3*): bool;
+@foreign func CheckCollisionRayBox(ray: Ray, box: BoundingBox): bool;
+@foreign func GetCollisionRayMesh(ray: Ray, mesh: Mesh, transform: Matrix): RayHitInfo;
+@foreign func GetCollisionRayModel(ray: Ray, model: Model): RayHitInfo;
+@foreign func GetCollisionRayTriangle(ray: Ray, p1: Vector3, p2: Vector3, p3: Vector3): RayHitInfo;
+@foreign func GetCollisionRayGround(ray: Ray, groundHeight: float): RayHitInfo;
