@@ -1,0 +1,38 @@
+// loading: Shader/unloading functions
+@foreign func LoadShader(vsFileName: char* const, fsFileName: char* const): Shader;
+@foreign func LoadShaderCode(vsCode: char* const, fsCode: char* const): Shader;
+@foreign func UnloadShader(shader: Shader);
+                            
+@foreign func GetShaderDefault(): Shader;
+@foreign func GetTextureDefault(): Texture2D;
+@foreign func GetShapesTexture(): Texture2D;
+@foreign func GetShapesTextureRec(): Rectangle;
+@foreign func SetShapesTexture(texture: Texture2D, source: Rectangle);
+
+// configuration: Shader functions
+@foreign func GetShaderLocation(shader: Shader, uniformName: char* const): int;
+@foreign func GetShaderLocationAttrib(shader: Shader, attribName: char* const): int;
+@foreign func SetShaderValue(shader: Shader, uniformLoc: int, value: void* const, uniformType: int);
+@foreign func SetShaderValueV(shader: Shader, uniformLoc: int, value: void* const, uniformType: int, count: int);
+@foreign func SetShaderValueMatrix(shader: Shader, uniformLoc: int, mat: Matrix);
+@foreign func SetShaderValueTexture(shader: Shader, uniformLoc: int, texture: Texture2D);
+@foreign func SetMatrixProjection(proj: Matrix);
+@foreign func SetMatrixModelview(view: Matrix);
+@foreign func GetMatrixModelview(): Matrix;
+@foreign func GetMatrixProjection(): Matrix;
+
+// Shading begin/end functions
+@foreign func BeginShaderMode(shader: Shader);
+@foreign func EndShaderMode();
+@foreign func BeginBlendMode(mode: int);
+@foreign func EndBlendMode();
+
+// VR control functions
+@foreign func InitVrSimulator();
+@foreign func CloseVrSimulator();
+@foreign func UpdateVrTracking(camera: Camera*);
+@foreign func SetVrConfiguration(info: VrDeviceInfo, distortion: Shader);
+@foreign func IsVrSimulatorReady(): bool;
+@foreign func ToggleVrMode();
+@foreign func BeginVrDrawing();
+@foreign func EndVrDrawing();
