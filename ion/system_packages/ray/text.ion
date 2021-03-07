@@ -1,0 +1,48 @@
+// loading: Font/unloading functions
+@foreign func GetFontDefault(): Font;
+@foreign func LoadFont(fileName: char* const): Font;
+@foreign func LoadFontEx(fileName: char* const, fontSize: int, fontChars: int*, charsCount: int): Font;
+@foreign func LoadFontFromImage(image: Image, key: Color, firstChar: int): Font;
+@foreign func LoadFontFromMemory(fileType: char* const, fileData: uchar* const, dataSize: int, fontSize: int, fontChars: int*, charsCount: int): Font;
+@foreign func LoadFontData(fileData: uchar* const, dataSize: int, fontSize: int, fontChars: int*, charsCount: int, type: int): CharInfo*;
+@foreign func GenImageFontAtlas(chars: CharInfo* const, recs: Rectangle**, charsCount: int, fontSize: int, padding: int, packMethod: int): Image;
+@foreign func UnloadFontData(chars: CharInfo*, charsCount: int);
+@foreign func UnloadFont(font: Font);
+
+// Text drawing functions
+@foreign func DrawFPS(posX: int, posY: int);
+@foreign func DrawText(text: char* const, posX: int, posY: int, fontSize: int, color: Color);
+@foreign func DrawTextEx(font: Font, text: char* const, position: Vector2, fontSize: float, spacing: float, tint: Color);
+@foreign func DrawTextRec(font: Font, text: char* const, rec: Rectangle, fontSize: float, spacing: float, wordWrap: bool, tint: Color);
+@foreign func DrawTextRecEx(font: Font, text: char* const, rec: Rectangle, fontSize: float, spacing: float, wordWrap: bool, tint: Color, selectStart: int, selectLength: int, selectTint: Color, selectBackTint: Color);
+@foreign func DrawTextCodepoint(font: Font, codepoint: int, position: Vector2, fontSize: float, tint: Color);
+
+// Text misc. functions
+@foreign func MeasureText(text: char* const, fontSize: int): int;
+@foreign func MeasureTextEx(font: Font, text: char* const, fontSize: float, spacing: float): Vector2;
+@foreign func GetGlyphIndex(font: Font, codepoint: int): int;
+
+// Text strings management functions (no utf8 strings, only byte chars)
+// NOTE: Some strings allocate memory internally for returned strings, just be careful!
+@foreign func TextCopy(dst: char*, src: char* const): int;
+@foreign func TextIsEqual(text1: char* const, text2: char* const): bool;
+@foreign func TextLength(text: char* const): uint;
+@foreign func TextFormat(text: char* const, ...): char* const;
+@foreign func TextSubtext(text: char* const, position: int, length: int): char* const;
+@foreign func TextReplace(text: char*, replace: char* const, by: char* const): char*;
+@foreign func TextInsert(text: char* const, insert: char* const, position: int): char*;
+@foreign func TextJoin(textList: char** const, count: int, delimiter: char* const): char* const;
+@foreign func TextSplit(text: char* const, delimiter: char, count: int*): char** const ;
+@foreign func TextAppend(text: char*, append: char* const, position: int*);
+@foreign func TextFindIndex(text: char* const, find: char* const): int;
+@foreign func TextToUpper(text: char* const): char* const;
+@foreign func TextToLower(text: char* const): char* const ;
+@foreign func TextToPascal(text: char* const): char* const;
+@foreign func TextToInteger(text: char* const): int;
+@foreign func TextToUtf8(codepoints: int*, length: int): char*;
+                                                                                                  
+// UTF8 text strings management functions
+@foreign func GetCodepoints(text: char* const, count: int*): int*;
+@foreign func GetCodepointsCount(text: char* const): int;
+@foreign func GetNextCodepoint(text: char* const, bytesProcessed: int*): int;
+@foreign func CodepointToUtf8(codepoint: int, byteLength: int*): char* const;
