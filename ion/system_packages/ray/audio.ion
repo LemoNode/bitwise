@@ -1,0 +1,61 @@
+// Audio device management functions
+@foreign func InitAudioDevice();
+@foreign func CloseAudioDevice();
+@foreign func IsAudioDeviceReady(): bool;
+@foreign func SetMasterVolume(volume: float);
+
+// Wave/loading: Sound/unloading functions
+@foreign func LoadWave(fileName: char* const): Wave;
+@foreign func LoadWaveFromMemory(fileType: char* const, fileData: uchar* const, dataSize: int): Wave;
+@foreign func LoadSound(fileName: char* const): Sound;
+@foreign func LoadSoundFromWave(wave: Wave): Sound;
+@foreign func UpdateSound(sound: Sound, data: void* const, samplesCount: int);
+@foreign func UnloadWave(wave: Wave);
+@foreign func UnloadSound(sound: Sound);
+@foreign func ExportWave(wave: Wave, fileName: char* const): bool;
+@foreign func ExportWaveAsCode(wave: Wave, fileName: char* const): bool;
+
+// Wave/management: Sound functions
+@foreign func PlaySound(sound: Sound);
+@foreign func StopSound(sound: Sound);
+@foreign func PauseSound(sound: Sound);
+@foreign func ResumeSound(sound: Sound);
+@foreign func PlaySoundMulti(sound: Sound);
+@foreign func StopSoundMulti();
+@foreign func GetSoundsPlaying(): int;
+@foreign func IsSoundPlaying(sound: Sound): bool;
+@foreign func SetSoundVolume(sound: Sound, volume: float);
+@foreign func SetSoundPitch(sound: Sound, pitch: float);
+@foreign func WaveFormat(wave: Wave*, sampleRate: int, sampleSize: int, channels: int);
+@foreign func WaveCopy(wave: Wave): Wave;
+@foreign func WaveCrop(wave: Wave*, initSample: int, finalSample: int);
+@foreign func LoadWaveSamples(wave: Wave): float*;
+@foreign func UnloadWaveSamples(samples: float*);
+
+// management: Music functions
+@foreign func LoadMusicStream(fileName: char* const): Music;
+@foreign func UnloadMusicStream(music: Music);
+@foreign func PlayMusicStream(music: Music);
+@foreign func UpdateMusicStream(music: Music);
+@foreign func StopMusicStream(music: Music);
+@foreign func PauseMusicStream(music: Music);
+@foreign func ResumeMusicStream(music: Music);
+@foreign func IsMusicPlaying(music: Music): bool;
+@foreign func SetMusicVolume(music: Music, volume: float);
+@foreign func SetMusicPitch(music: Music, pitch: float);
+@foreign func GetMusicTimeLength(music: Music): float;
+@foreign func GetMusicTimePlayed(music: Music): float;
+
+// management: AudioStream functions
+@foreign func InitAudioStream(sampleRate: uint, sampleSize: uint, channels: uint): AudioStream;
+@foreign func UpdateAudioStream(stream: AudioStream, data: void* const, samplesCount: int);
+@foreign func CloseAudioStream(stream: AudioStream);
+@foreign func IsAudioStreamProcessed(stream: AudioStream): bool;
+@foreign func PlayAudioStream(stream: AudioStream);
+@foreign func PauseAudioStream(stream: AudioStream);
+@foreign func ResumeAudioStream(stream: AudioStream);
+@foreign func IsAudioStreamPlaying(stream: AudioStream): bool;
+@foreign func StopAudioStream(stream: AudioStream);
+@foreign func SetAudioStreamVolume(stream: AudioStream, volume: float);
+@foreign func SetAudioStreamPitch(stream: AudioStream, pitch: float);
+@foreign func SetAudioStreamBufferSizeDefault(size: int);
